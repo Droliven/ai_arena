@@ -1,0 +1,20 @@
+# 依赖
+node_modules/
+
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# 日志
+*.log
+npm-debug.log*
+
+# 环境变量
+.env
+.env.*
+
+# 抓取过程中的临时文件
+*.tmp

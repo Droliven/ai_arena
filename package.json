@@ -1,0 +1,11 @@
+{
+  "name": "ai-arena",
+  "version": "1.0.0",
+  "description": "自由勾选任意多个大模型，对比 Artificial Analysis 上的各项指标",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "update": "node scripts/fetch-data.mjs"
+  },
+  "engines": { "node": ">=18" }
+}

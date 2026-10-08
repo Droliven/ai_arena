@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Arena · 大模型多维对比</title>
+  <meta name="description" content="自由勾选任意多个大模型，一键对比智能、成本、速度、延迟等全部指标。数据来源：Artificial Analysis。" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <button id="btn-drawer" class="icon-btn only-mobile" title="选择模型" aria-label="选择模型">☰</button>
+    <div class="brand">
+      <span class="logo">⚔️</span>
+      <div>
+        <h1>AI Arena</h1>
+        <p id="data-info" class="sub"></p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button id="btn-refresh" class="btn btn-primary" title="从 Artificial Analysis 实时抓取最新模型与指标">🔄 更新数据</button>
+      <button id="btn-share" class="btn">🔗 复制分享链接</button>
+      <button id="btn-csv" class="btn">⬇ 导出 CSV</button>
+      <button id="btn-clear" class="btn btn-ghost">清空</button>
+    </div>
+  </header>
+  <div id="progress" class="progress" hidden><div class="progress-bar"></div><span class="progress-msg"></span></div>
+
+  <div class="layout">
+    <!-- 左侧：模型选择 -->
+    <aside id="sidebar" class="sidebar">
+      <div class="side-head">
+        <input id="search" type="search" placeholder="搜索模型 / 厂商，例如 opus、gpt、qwen…" autocomplete="off" />
+        <div class="side-filters">
+          <select id="creator-filter" aria-label="按厂商筛选"></select>
+          <label class="chk"><input id="only-detail" type="checkbox" /> 仅含完整指标</label>
+        </div>
+        <div class="presets" id="presets"></div>
+        <div class="side-count"><span id="side-count"></span></div>
+      </div>
+      <div id="model-list" class="model-list"></div>
+    </aside>
+    <div id="scrim" class="scrim"></div>
+
+    <!-- 右侧：对比结果 -->
+    <main class="main">
+      <section id="empty" class="empty">
+        <div class="empty-emoji">👈</div>
+        <h2>从左侧勾选想要对比的模型</h2>
+        <p>可任意多选，支持不同厂商、不同推理强度（max / high / low …）混合对比。<br />也可以点击上方的快捷预设快速开始。</p>
+      </section>
+
+      <section id="result" hidden>
+        <div id="chips" class="chips"></div>
+
+        <div id="cards" class="cards"></div>
+        <p id="insight" class="insight"></p>
+
+        <div class="grid2">
+          <div class="panel">
+            <div class="panel-head wrap">
+              <h3>智能 vs. 成本</h3>
+              <span class="hint">同色系 = 同一系列；连线 = 推理强度由低到高；实心 = 性价比前沿，空心 = 被取代</span>
+            </div>
+            <div id="scatter" class="scatter"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>性价比阶梯</h3><span class="hint">多花钱换来多少提升</span></div>
+            <div id="ladder" class="ladder-wrap"></div>
+          </div>
+        </div>
+
+        <div class="panel" id="scen-panel">
+          <div class="panel-head wrap"><h3>按场景选</h3><span id="scen-hint" class="hint"></span></div>
+          <div id="scenarios" class="scen-wrap"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head wrap">
+            <h3>指标对比</h3>
+            <div id="tabs" class="tabs"></div>
+            <span class="hint legend">★ 该项最优 · ◆ 性价比前沿 · 柱按「好 → 差」排序</span>
+          </div>
+          <div id="charts" class="charts"></div>
+          <p class="foot">标记 <span class="tag">基础</span> 的模型仅有排行榜核心指标，其余指标站点未提供，因此不出现在对应图表里。</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="data/models.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
